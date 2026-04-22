@@ -1,7 +1,7 @@
-import { maxParamsRule } from "./maxParamsRule";
-import { noAnonymousFunctionRule } from "./noAnonymousFunctionRule";
-import { noConsoleLogRule } from "./noConsoleLogRule";
-import { noDebuggerRule } from "./noDebuggerRule";
+import { maxParamsRule } from "./maxParamsRule.js";
+import { noAnonymousFunctionRule } from "./noAnonymousFunctionRule.js";
+import { noConsoleLogRule } from "./noConsoleLogRule.js";
+import { noDebuggerRule } from "./noDebuggerRule.js";
 import { noEmptyFunctionRule } from './noEmptyFunctionRule.js'
 import { noVarRule } from "./novarRule.js";
 import { strictEqualityRule } from './strictEqualityRule.js'
