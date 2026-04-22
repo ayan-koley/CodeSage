@@ -9,7 +9,7 @@ import {
     noVarRule,
     strictEqualityRule,
     unusedVariableRule
- } from '../rules/index.js/'
+ } from '../rules/index.js'
 
 const rules = [maxParamsRule, noAnonymousFunctionRule, noConsoleLogRule, noDebuggerRule, noEmptyFunctionRule, noVarRule, strictEqualityRule, unusedVariableRule];
 
@@ -21,7 +21,7 @@ export const runASTAnalysis = (code) => {
         });
 
         const issues = [];
-        traverse(ast, {
+        traverse.default(ast, {
             enter(path) {
                 rules.map(rule => {
                     const result = rule(path);
@@ -31,7 +31,6 @@ export const runASTAnalysis = (code) => {
                 })
             }
         })
-
         return { issues };
 
     } catch (e) {
