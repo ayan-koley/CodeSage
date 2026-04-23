@@ -1,51 +1,73 @@
 import { gemini } from "../config/gemini.config.js";
 
 export const getImprovements = async(code, issues) => {
-    console.log('flow came into the ai services')
     const prompt = `
-    You are a senior software engineer performing a professional code review.
+    You are a senior software engineer and static analysis expert.
 
     INPUT:
     1. CODE:
     ${code}
+
     2. VERIFIED ISSUES (from ESLint + AST):
     ${JSON.stringify(issues, null, 2)}
 
     IMPORTANT:
-    - The issues provided are REAL and must be addressed
-    - Do NOT ignore any issue
-    - Do NOT invent fake issues
-    - Each issue MUST produce exactly one improvement
+    - The issues are already verified → DO NOT ignore any
+    - DO NOT create new issues (except max 2 minor improvements if necessary)
+    - Each issue MUST map to exactly ONE fix
+    - Fixes must be precise and safe (no breaking unrelated code)
 
     TASK:
-    For EACH issue:
-    - Explain the issue clearly
-    - Suggest how to fix it
-    - Provide improved/refactored code
+    For each issue:
+    - Identify the exact location in the code
+    - Generate a minimal patch (not full rewrite unless necessary)
+    - Keep fixes independent and non-overlapping
 
-    Additionally:
-    - You may add up to 2 extra improvements (only if meaningful)
-
-    RULES:
+    OUTPUT REQUIREMENTS:
     - Return ONLY valid JSON
-    - No markdown (no \`\`\`)
-    - No extra text outside JSON
-    - Refactored code must be complete and runnable
-    - Keep explanations concise and practical
+    - No markdown, no comments, no extra text
+    - All fixes must include exact line numbers
+    - Code must remain runnable after applying fixes
 
     OUTPUT FORMAT (STRICT):
+
     {
-      "improvements": [
+      "summary": {
+        "totalIssues": number,
+        "totalFixes": number,
+        "confidence": number (0 to 1),
+        "notes": "short summary of overall code quality under 200 chars"
+      },
+      "fixes": [
         {
-          "source": "eslint | ast | ai",
-          "title": "Short title of issue",
-          "explanation": "Clear explanation",
-          "suggestion": "How to fix",
-          "refactoredCode": "Full improved code",
-          "impact": "low | medium | high"
+          "issueId": "string (must match input issue id)",
+
+          "type": "replace | insert | delete",
+
+          "lineStart": number,
+          "lineEnd": number,
+
+          "columnStart": number,
+          "columnEnd": number,
+
+          "oldCode": "exact original code snippet",
+          "newCode": "updated code snippet",
+
+          "confidence": number (0 to 1)
         }
       ]
     }
+
+    RULES:
+    - lineStart/lineEnd must match actual code positions
+    - columnStart/columnEnd should be accurate when possible, else use null
+    - "replace" → replace existing code
+    - "insert" → lineStart = insertion point, oldCode = ""
+    - "delete" → newCode = ""
+    - DO NOT return full file unless absolutely required
+    - DO NOT modify unrelated parts of code
+    - Keep fixes minimal and precise
+
     If output is not valid JSON, regenerate the response.`;
 
     try {
