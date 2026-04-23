@@ -24,7 +24,6 @@ const analyzeCode = async(code) => {
         const resolveConflictsIssues = resolveConflicts(issueNormalize);
         const { response, responseText } = await getImprovements(code, resolveConflictsIssues); 
 
-        console.log("response ", response)
         console.log("response Text ", responseText);
 
     } catch (e) {
