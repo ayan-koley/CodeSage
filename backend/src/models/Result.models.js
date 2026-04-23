@@ -29,16 +29,32 @@ const resultSchema = new Schema(
                 required: true
             }
         ],
-        improvements: [
+        fixes: [
             {
                 type: Schema.Types.ObjectId,
-                ref: "Improvement",
+                ref: "Fix",
                 required: true
             }
         ],
         summary: {
-            type: String,
-            required: true
+            totalIssues: {
+                type: Number,
+                required: true
+            },
+            totalFixes: {
+                type: Number,
+                required: true
+            },
+            confidence: {
+                type: Number,
+                min: 0,
+                max: 1,
+                required: true
+            },
+            notes: {
+                type: String,
+                maxlength: 200
+            }
         },
         breakdown: {
             type: breakdownSchema,
