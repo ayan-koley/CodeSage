@@ -20,7 +20,7 @@ const getSeverity = (msg) => {
   return "medium";
 };
 
-export const runLint = async (code, fileName="file.js") => {
+export const runLint = async (code, fileName="src/file.js") => {
     try {
         // 1. create an instance
         const eslint = new ESLint({
