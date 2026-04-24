@@ -4,9 +4,6 @@ import tseslint from "typescript-eslint";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig([
-  {
-    ...js.configs.recommended
-  },
   { 
     // files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
     files: ["**/*.js"],
@@ -17,7 +14,8 @@ export default defineConfig([
       globals: globals.node
     }, 
     rules: {
-      eqeqeq: "error"
+      eqeqeq: "error",
+      "no-console": "error",
     }
   },
   {
@@ -26,11 +24,15 @@ export default defineConfig([
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "commonjs",
-      globals: globals.node
+      globals: globals.node,
+    },
+    rules: {
+      eqeqeq: "error",
+      "no-console": "error",
     }
   },
   {
     files: ["**/*.ts"],
-    ...tseslint.config.recommended
+    ...tseslint.configs.recommended
   }
 ]);
