@@ -2,13 +2,15 @@ import { ESLint } from 'eslint';
 
 const mapLintToIssue = (msg) => {
     return {
+        source: ["eslint"],
         type: msg.severity === 2 ? "bug" : "warning",
         ruleId: msg.ruleId,
         title: msg.ruleId || "Unknown Issue",
         severity: getSeverity(msg),
-        explanation: msg.message,
+        suggestions: [msg.message],
         fix: msg.suggestions?.[0]?.desc || null,
         lineNumber: msg.line,
+        column: msg.column
     };
 }
 
