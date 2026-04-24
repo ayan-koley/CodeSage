@@ -15,13 +15,25 @@ export const getImprovements = async(code, issues) => {
     - The issues are already verified → DO NOT ignore any
     - DO NOT create new issues (except max 2 minor improvements if necessary)
     - Each issue MUST map to exactly ONE fix
+    - Fix MUST be derived from the "suggestions" field of the issue
+    - DO NOT invent new fixes beyond the given suggestions
     - Fixes must be precise and safe (no breaking unrelated code)
 
     TASK:
     For each issue:
-    - Identify the exact location in the code
+    - Read the "suggestions" array carefully
+    - Select the most appropriate suggestion (usually the first one)
+    - Apply that suggestion directly to the code
+    - Identify the exact location in the code using lineNumber and column
     - Generate a minimal patch (not full rewrite unless necessary)
     - Keep fixes independent and non-overlapping
+
+    SUGGESTION INTERPRETATION RULES:
+    - If suggestion says "remove" → delete the relevant code block completely
+    - If suggestion says "replace" or implies change → modify only that part
+    - If suggestion suggests adding something (e.g., export) → insert or update accordingly
+    - Do NOT partially apply a suggestion (apply it fully and correctly)
+    - Do NOT modify unrelated code
 
     OUTPUT REQUIREMENTS:
     - Return ONLY valid JSON
@@ -76,7 +88,7 @@ export const getImprovements = async(code, issues) => {
         contents: prompt
       })
   
-      return {response, responseText: response.text};
+      return response.text;
     } catch (e) {
       console.error(`gemini error :: `, e.message);
     }
