@@ -11,13 +11,13 @@ import {
     unusedVariableRule
  } from '../rules/index.js'
 
-const rules = [maxParamsRule, noAnonymousFunctionRule, noConsoleLogRule, noDebuggerRule, noEmptyFunctionRule, noVarRule, strictEqualityRule, unusedVariableRule];
+const rules = [];
 
 export const runASTAnalysis = (code) => {
     try {
         const ast = babelParser.parse(code, {
             sourceType: "unambiguous",
-            plugins: ["jsx", "typescript"],
+            plugins: ["javascript", "typescript"],
         });
 
         const issues = [];
