@@ -13,7 +13,10 @@ export const analyzeCode = async(code) => {
         const resolveConflictsIssues = resolveConflicts(eslintIssues, astIssues);
         const responseText = await getImprovements(code, resolveConflictsIssues);
 
-        return JSON.parse(responseText);
+        const response = JSON.parse(responseText);
+        response.issues = resolveConflictsIssues;
+
+        return response;
     } catch (e) {
         console.error("something went wrong with the code ", e.message);
         throw new Error("Failed to analyze code");
