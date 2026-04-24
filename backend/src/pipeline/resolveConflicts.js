@@ -1,18 +1,29 @@
-export const resolveConflicts = (issues) => {
+export const resolveConflicts = (eslintIssues, astIssues) => {
     const map = new Map();
 
-    for(const issue of issues) {
-        const key = `${issue.lineNumber}-${issue.title}`;
+    // add eslint issues to the map
+    eslintIssues.forEach(issue => {
+        const key = `${issue.lineNumber}-${issue.column}`;
+        map.set(key, issue);
+    });
 
-        if(!map.has(key)) {
-            map.set(key, issue);
-        }   else {
+    // add ast issues and if conflict accurs, add both 
+    astIssues.forEach(issue => {
+        const key = `${issue.lineNumber}-${issue.column}`;
+
+        if(map.has(key)) {
             const existing = map.get(key);
-            if(existing.source === "eslint") {
-                map.set(key, issue);
-            }
+
+            existing.suggestions.push(...existing.suggestions, ...issue.suggestions);
+            existing.source.push(new Set([
+                ...existing.source,
+                ...issue.source
+            ]));
+            existing.type = "architecture";
+        }   else {
+            map.set(key, issue);
         }
-    }
+    })
 
     return Array.from(map.values());
 }
