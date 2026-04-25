@@ -1,5 +1,6 @@
 import exprss from 'express';
 import cors from 'cors';
+import { clerkMiddleware } from '@clerk/express'
 
 const app = exprss();
 app.use(exprss.json());
@@ -9,6 +10,7 @@ app.use(cors({
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
 }));
+app.use(clerkMiddleware());
 
 import analysisRoute from "./routes/analysis.routes.js";
 app.use("/api/v1/analysis", analysisRoute);
