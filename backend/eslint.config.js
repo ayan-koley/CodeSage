@@ -15,7 +15,12 @@ export default defineConfig([
     }, 
     rules: {
       eqeqeq: "error",
-      "no-console": "error",
+      "no-var": "error",
+      "prefer-const": "error",
+      "no-unused-vars": "warn",
+      "no-console": "warn",
+      // "promise/no-nesting": "warn", // requires plugin
+      "no-implicit-globals": "error"
     }
   },
   {
@@ -28,7 +33,6 @@ export default defineConfig([
     },
     rules: {
       eqeqeq: "error",
-      "no-console": "error",
     }
   },
   {
