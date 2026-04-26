@@ -13,11 +13,13 @@
   "dependencies": {
     "@babel/parser": "^7.29.2",
     "@babel/traverse": "^7.29.0",
+    "@clerk/express": "^2.1.9",
     "@google/genai": "^1.50.1",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "mongoose": "^9.4.1"
+    "mongoose": "^9.4.1",
+    "openai": "^6.34.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
