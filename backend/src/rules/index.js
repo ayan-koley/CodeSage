@@ -1,3 +1,5 @@
+// TODO: delete all rules and make architectural rules here not repeated rules
+
 import { maxParamsRule } from "./maxParamsRule.js";
 import { noAnonymousFunctionRule } from "./noAnonymousFunctionRule.js";
 import { noConsoleLogRule } from "./noConsoleLogRule.js";
