@@ -1,3 +1,5 @@
+// TODO: properly issues are not generated
+
 import { runASTAnalysis } from "../services/ast.services.js";
 import { runLint } from "../services/lint.services.js";
 import { getImprovements } from "../services/ai.services.js";
