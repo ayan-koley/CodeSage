@@ -6,11 +6,14 @@ const app = exprss();
 app.use(exprss.json());
 app.use(exprss.urlencoded({ extended: true }));
 app.use(cors({
-    origin: "*",
+    origin: "http://localhost:8080",
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
 }));
-app.use(clerkMiddleware());
+app.use(clerkMiddleware({
+    publishableKey: process.env.CLERK_PUBLISHABLE_KEY, 
+    secretKey: process.env.CLERK_SECRET_KEY
+}));
 
 import analysisRoute from "./routes/analysis.routes.js";
 app.use("/api/v1/analysis", analysisRoute);
