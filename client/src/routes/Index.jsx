@@ -35,7 +35,6 @@ function Index() {
     // }, 900)
     const response = await analysisCode(code);
     setReview(response);
-    console.log("response ", response);
     setAnalyzing(false);
   };
 

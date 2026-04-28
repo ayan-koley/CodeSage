@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { buildDiff } from "@/lib/diff";
 
 export function DiffViewer({ code, fixes, issues, hoveredIssueId, onHoverIssue, showOriginal }) {
-  console.log("DiffViewer props ", { code, fixes, issues, hoveredIssueId, showOriginal });
   const rows = useMemo(() => {
     if (showOriginal) {
       return code
