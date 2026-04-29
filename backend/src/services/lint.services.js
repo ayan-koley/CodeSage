@@ -10,8 +10,14 @@ const mapLintToIssue = (msg) => {
         suggestions: [msg.message],
         fix: msg.suggestions?.[0]?.desc || null,
         lineNumber: msg.line,
-        column: msg.column
+        column: msg.column,
+        name: extractNameFromMsg(msg)
     };
+}
+
+function extractNameFromMsg(msg) {
+  const match = msg.message.match(/'(.+?)'/);
+  return match ? match[1] : null;
 }
 
 const getSeverity = (msg) => {
