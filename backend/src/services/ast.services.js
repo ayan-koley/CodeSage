@@ -1,17 +1,8 @@
 import babelParser from "@babel/parser";
 import traverse from "@babel/traverse";
-import {
-    maxParamsRule,
-    noAnonymousFunctionRule,
-    noConsoleLogRule,
-    noDebuggerRule,
-    noEmptyFunctionRule,
-    noVarRule,
-    strictEqualityRule,
-    unusedVariableRule
- } from '../rules/index.js'
+import { noUnusedFunctionRule } from "../rules/noUsedFunction.js";
 
-const rules = [];
+const rules = [ noUnusedFunctionRule ];
 
 export const runASTAnalysis = (code) => {
     try {
