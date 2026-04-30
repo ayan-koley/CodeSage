@@ -7,8 +7,7 @@ const mapLintToIssue = (msg) => {
         ruleId: msg.ruleId,
         title: msg.ruleId || "Unknown Issue",
         severity: getSeverity(msg),
-        suggestions: [msg.message],
-        fix: msg.suggestions?.[0]?.desc || null,
+        message: [ msg.suggestions?.[0]?.desc || msg.message ],
         lineNumber: msg.line,
         column: msg.column,
         name: extractNameFromMsg(msg)
