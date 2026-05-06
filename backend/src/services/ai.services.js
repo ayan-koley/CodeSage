@@ -118,5 +118,6 @@ export const getImprovements = async(code, issues) => {
       return response.text;
     } catch (e) {
       console.error(`gemini error :: `, e.message);
+      process.exit(1);
     }
 } 
