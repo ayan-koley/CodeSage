@@ -34,6 +34,7 @@ function Index() {
     //   setAnalyzing(false);
     // }, 900)
     const response = await analysisCode(code);
+    console.log('response ', response);
     setReview(response);
     setAnalyzing(false);
   };
